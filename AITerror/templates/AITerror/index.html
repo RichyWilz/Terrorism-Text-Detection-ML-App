@@ -287,8 +287,9 @@
                     <strong>Terrorism results displayed here</strong>
                 </h3>
                 <p id="output" class="mbr-section-subtitle mbr-fonts-style mt-4 display-7">
-                    ...
+                   ...
                 </p>
+                <div id="explanation"></div>
             </div>
         </div>
     </div>
@@ -515,6 +516,25 @@
             } else if (data.prediction === 1) {
                 outputElement.textContent = 'Normal text';
             }
+            // Display the explanation
+            var explanationElement = document.querySelector('#explanation');
+            explanationElement.innerHTML = '';
+            explanationElement.style.textAlign = 'center';
+            data.explanation.forEach(function(item) {
+                var wordElement = document.createElement('span');
+                wordElement.textContent = item[0] + ' ';
+                wordElement.style.fontSize = '35px';
+                wordElement.style.al
+                // Change the background color based on the weight of the word
+                var weight = Math.abs(item[1]);
+                var alpha = Math.min(1, weight + 0.5);
+                if (item[1] > 0) {
+                    wordElement.style.backgroundColor = 'rgba(0, 255, 0, ' + alpha + ')';
+                } else {
+                    wordElement.style.backgroundColor = 'rgba(255, 0, 0, ' + alpha + ')';
+                }
+                explanationElement.appendChild(wordElement);
+            });
         });
     });
   </script>
